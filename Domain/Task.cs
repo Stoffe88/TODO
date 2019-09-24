@@ -1,21 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TODO.Domain
 {
     class Task
     {
+        public int Id { get; set; }
         public string Title { get; set; }
-        public DateTime DueDate { get; set; }
-        public bool TaskDone { get; set; }
-
-
-        public Task(string title, DateTime dueDate)
+        public DateTime? DueDate { get; set; }
+        public DateTime? Completed { get; private set; }
+        //public bool IsCompleted
+        //{
+        //    get
+        //    {
+        //        return Completed != null;
+        //    }
+        //}
+        
+        public Task(int id, string title, DateTime dueDate)
         {
+            Id = id;
             Title = title;
             DueDate = dueDate;
-            TaskDone = false;
+
         }
+
+
     }
 }

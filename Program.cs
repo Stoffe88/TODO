@@ -6,9 +6,11 @@ namespace TODO
 {
     class Program
     {
+        static Task[] taskList = new Task[100];
         static void Main(string[] args)
         {
-            Task[] taskList = new Task[2];
+            
+            int taskIdCounter = 1;
 
             bool isRunning = true;
 
@@ -17,8 +19,8 @@ namespace TODO
                 Clear();
 
                 WriteLine("1. Add todo");
-                Console.WriteLine("2. List todos");
-                Console.WriteLine("3. Exit");
+                WriteLine("2. List todos");
+                WriteLine("3. Exit");
 
                 var pressedKey = ReadKey(true);
 
@@ -34,11 +36,13 @@ namespace TODO
                         Write("Due date (yyyy-MM-dd hh:mm): ");
                         var dueDate = DateTime.Parse(ReadLine());
 
-                        Task task = new Task(title, dueDate);
+                        
                         
                         if (TryFindAvailablePosition(taskList, out int index))
                         {
-                            taskList[index] = task;
+                            taskList[index] = new Task(taskIdCounter++, title, dueDate);
+                            Clear();
+                            Console.WriteLine($"Task added: {taskList[index].Title}");
                         }
                         else
                         {
@@ -51,6 +55,24 @@ namespace TODO
 
                     case ConsoleKey.D2:
 
+                        Console.WriteLine("ID TODO                 Due date        Completed   Completed date");
+                        Console.WriteLine("---------------------------------------------------------------");
+
+                        //int numberOfTasks = 0;
+
+                        //while (numberOfTasks < taskList.Length && taskList[numberOfTasks] != null)
+                        //{
+                        //    numberOfTasks++;
+                        //}
+
+                        foreach (var todo in taskList)
+                        {
+                            if (todo == null) continue;
+                            Console.WriteLine($"{todo.Id}. {todo.Title}     {todo.DueDate}      {todo.Completed}");
+                        }
+
+                        ReadKey(true);
+                        
                         break;
 
                     case ConsoleKey.D3:
